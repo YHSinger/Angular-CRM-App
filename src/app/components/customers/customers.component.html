@@ -1,0 +1,55 @@
+<app-page-header
+  title="customers"
+  icon="fas fa-address-book"
+  description="list of customers"
+></app-page-header>
+
+<div class="row">
+  <div class="col-12">
+    <span class="float-end mt-3">
+      <a routerLink="/customers/new" class="btn btn-primary"
+        ><i class="fas fa-plus-circle"></i> Add New Customer</a
+      >
+    </span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <div *ngIf="customers$ | async as customers; else loading" class="mt-5">
+      <table
+        *ngIf="customers.length; else noCustomers"
+        class="table table-bordered"
+      >
+        <thead>
+          <tr>
+            <th>#No</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Adress</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let customer of customers; index as idx">
+            <td>{{ idx + 1 }}</td>
+            <td>{{ customer.firstName }}</td>
+            <td>{{ customer.lastName }}</td>
+            <td>{{ customer.email }}</td>
+            <td>{{ customer.phone }}</td>
+            <td>{{ customer.address }}</td>
+            <td>{{ customer.notes }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #noCustomers>
+        <p><i>No customers...</i></p>
+      </ng-template>
+    </div>
+    <ng-template #loading>
+      <p><i>Loading...</i></p>
+    </ng-template>
+  </div>
+</div>

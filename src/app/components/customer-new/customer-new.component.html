@@ -1,0 +1,137 @@
+<app-page-header
+  title="add customer"
+  description="add a new customer"
+  icon="fas fa-user-plus"
+></app-page-header>
+
+<div class="row">
+  <div class="col-12 mt-5">
+    <form #ngForm="ngForm" (ngSubmit)="onSubmit(ngForm)">
+      <div class="row justify-content-center">
+        <div class="col-md-5 mb-3">
+          <label for="firstName">
+            <span class="text-danger">*</span> First Name
+          </label>
+          <input
+            type="text"
+            #firstNameModel="ngModel"
+            [(ngModel)]="form.firstName"
+            required
+            minlength="2"
+            name="firstName"
+            class="form-control"
+            id="firstName"
+            [ngClass]="{
+              'is-invalid': firstNameModel.invalid && firstNameModel.touched,
+              'is-valid': firstNameModel.valid && firstNameModel.touched
+            }"
+          />
+          <div
+            [hidden]="!firstNameModel.errors?.['required']"
+            class="invalid-feedback"
+          >
+            First name is required
+          </div>
+          <div
+            [hidden]="!firstNameModel.errors?.['minlength']"
+            class="invalid-feedback"
+          >
+            First name must be at least
+            {{firstNameModel.errors?.['minlength'].requiredLength}} characters
+          </div>
+        </div>
+        <div class="col-md-5 mb-3">
+          <label for="lastName">
+            <span class="text-danger">*</span> Last Name
+          </label>
+          <input
+            type="text"
+            #lastNameModel="ngModel"
+            [(ngModel)]="form.lastName"
+            required
+            minlength="2"
+            name="lastName"
+            class="form-control"
+            id="lastName"
+            [ngClass]="{
+              'is-invalid': lastNameModel.invalid && lastNameModel.touched,
+              'is-valid': lastNameModel.valid && lastNameModel.touched
+            }"
+          />
+        </div>
+        <div class="col-md-5 mb-3">
+          <label for="email"> <span class="text-danger">*</span> Email </label>
+          <input
+            type="email"
+            #emailModel="ngModel"
+            [(ngModel)]="form.email"
+            required
+            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+            name="email"
+            class="form-control"
+            id="email"
+            [ngClass]="{
+              'is-invalid': emailModel.invalid && emailModel.touched,
+              'is-valid': emailModel.valid && emailModel.touched
+            }"
+          />
+        </div>
+        <div class="col-md-5 mb-3">
+          <label for="phone"> <span class="text-danger">*</span> Phone </label>
+          <input
+            type="tel"
+            #phoneModel="ngModel"
+            [(ngModel)]="form.phone"
+            required
+            pattern="^0[2-9]\d{7,8}$"
+            name="phone"
+            class="form-control"
+            id="phone"
+            [ngClass]="{
+              'is-invalid': phoneModel.invalid && phoneModel.touched,
+              'is-valid': phoneModel.valid && phoneModel.touched
+            }"
+          />
+        </div>
+        <div class="col-md-10 mb-3">
+          <label for="address">Address</label>
+          <textarea
+            #addressModel="ngModel"
+            [(ngModel)]="form.address"
+            name="address"
+            id="address"
+            rows="5"
+            class="form-control"
+          ></textarea>
+        </div>
+        <div class="col-md-10 mb-3">
+          <label for="notes">Notes</label>
+          <textarea
+            #notesModel="ngModel"
+            [(ngModel)]="form.notes"
+            name="notes"
+            id="notes"
+            rows="5"
+            class="form-control"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="fixed-bottom bg-dark p-3 text-center">
+        <a routerLink="/customers" class="btn btn-secondary">Cancel</a>
+        <input
+          type="button"
+          value="Reset"
+          (click)="resetForm(ngForm)"
+          class="btn btn-secondary ms-3"
+        />
+        <input
+          type="submit"
+          [disabled]="ngForm.form.invalid"
+          value="Save"
+          class="btn btn-primary ms-3"
+        />
+      </div>
+    </form>
+  </div>
+</div>
